@@ -1,7 +1,10 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#define MAX_LINE_LENGTH 100
+
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef enum {
   A_INSTRUCTION,
@@ -10,7 +13,7 @@ typedef enum {
 } InstructionType;
 
 //opens input stream
-void initializer(FILE* input);
+void parserInitializer(FILE* fp);
 
 //Are there more lines in input
 bool hasMoreLines(void);
