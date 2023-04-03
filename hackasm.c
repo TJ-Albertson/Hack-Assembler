@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
                     next_variable_address++;
                 }
             }
-            fprintf(output_file, "0%15d\n")
+            fprintf(output_file, "0%15d\n");
         }
 
         // Check for C-instruction
