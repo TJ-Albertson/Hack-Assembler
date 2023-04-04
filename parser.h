@@ -5,6 +5,9 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
+#include "regexUtils.h"
 
 typedef enum {
   A_INSTRUCTION,

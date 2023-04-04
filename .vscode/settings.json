@@ -1,6 +1,12 @@
 {
     "files.associations": {
         "stdbool.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "stdlib.h": "c"
+    },
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#531538",
+        "titleBar.activeBackground": "#741D4E",
+        "titleBar.activeForeground": "#FEFCFD"
     }
 }

@@ -1,4 +1,4 @@
-#include "SymbolTable.h"
+#include "symbolTable.h"
 
 struct SymbolTable SymbolTable[MAX_STRUCT_ARR_SIZE] = {};
 
