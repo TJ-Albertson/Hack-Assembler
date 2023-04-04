@@ -15,37 +15,48 @@ int main() {
     printf("parser initialized\n");
 
     //second pass
-    while (hasMoreLines)
+    while (hasMoreLines())
     {
-        advance();
-        
         if(instructionType() == C_INSTRUCTION) {
             printf("C instruction\n");
+            printf("------------------------\n");
+            printf("dest: %s, comp: %s, jump: %s\n", dest(), comp(), jump());
+            printf( "Binary Output: 111%s%s%s\n\n", dest_bin(dest()), comp_bin(comp()), jump_bin(jump()));
+
             fprintf(output, "111%s%s%s\n", dest_bin(dest()), comp_bin(comp()), jump_bin(jump()));
+            
             continue;
         }
 
         printf("A instruction\n");
+        printf("------------------------\n");
 
         int decimal = strtol(symbol(), NULL, 10); 
-        int i;
+        int i, binary[15];
 
         printf("Decimal: %d\n", decimal);
         printf("Pre Decimal to Binary Conversion\n");
         fprintf(output, "0");
-        printf("0");
+        printf("Binary Output: 0");
         // Convert decimal to binary
-        for (i = 14; i >= 0; i--) {
-            fprintf(output, "%d", decimal & 1);
-            printf("%d", decimal & 1);
-            decimal >>= 1;
+        for (i = 0; i < 15; i++) {
+            binary[14 - i] = decimal % 2;
+            decimal /= 2;
         }
-        fprintf(output, "\n");
-        printf("\n");
 
+        for (i = 0; i < 15; i++) {
+            fprintf(output, "%d", binary[i]);
+            printf("%d", binary[i]);
+        }   
+
+        fprintf(output, "\n");
+        
+        printf("\n\n");
+        printf("------------------------\n");
+
+        advance();
     }
 
-    fclose(fp);
     fclose(output);
 
     return 0;

@@ -2,7 +2,8 @@
     "files.associations": {
         "stdbool.h": "c",
         "string.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "sstream": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.background": "#531538",

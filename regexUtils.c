@@ -11,16 +11,13 @@ char* matchRegex(const char* input, const char* pattern) {
     regmatch_t match;
     int reti;
 
-    printf("input: %s\n", input);
-    printf("pattern: %s\n", pattern);
-   
+  
 
     // Compile the regex pattern
     reti = regcomp(&regex, pattern, 0);
     if (reti) {
-        return NULL;
+        return "";
     }
-
 
     //SEg fault  here vvvvvvvvvv
 
@@ -30,8 +27,7 @@ char* matchRegex(const char* input, const char* pattern) {
     //issue is this returning null. this function should never return NULL
     if (reti) {
         regfree(&regex);
-        printf("yo\n");
-        return NULL;
+        return "";
     }
     //SEg fault  here ^^^^^^^^^
 
