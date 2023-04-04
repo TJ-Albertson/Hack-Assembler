@@ -30,14 +30,18 @@ int main() {
         int decimal = strtol(symbol(), NULL, 10); 
         int i;
 
+        printf("Decimal: %d\n", decimal);
         printf("Pre Decimal to Binary Conversion\n");
         fprintf(output, "0");
+        printf("0");
         // Convert decimal to binary
         for (i = 14; i >= 0; i--) {
             fprintf(output, "%d", decimal & 1);
+            printf("%d", decimal & 1);
             decimal >>= 1;
         }
         fprintf(output, "\n");
+        printf("\n");
 
     }
 

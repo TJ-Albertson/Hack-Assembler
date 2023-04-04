@@ -11,6 +11,8 @@ char* matchRegex(const char* input, const char* pattern) {
     regmatch_t match;
     int reti;
 
+    printf("input: %s\n", input);
+    printf("pattern: %s\n", pattern);
    
 
     // Compile the regex pattern

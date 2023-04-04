@@ -88,7 +88,10 @@ InstructionType instructionType(void) {
 char* symbol(void) {
     //return instruction[1] to \n
     if(instructionType()==A_INSTRUCTION) {
-        return matchRegex(instruction, "^@(.+)$");
+        int len = strlen(instruction);
+        memmove(instruction, instruction + 1, len);
+        instruction[len - 1] = '\0';
+        return instruction;
     }
 
     return matchRegex(instruction, "\\w+");
