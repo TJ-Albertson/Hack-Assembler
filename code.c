@@ -3,20 +3,25 @@
 #include <stdlib.h>
 
 char* dest_bin(char* mnemonic) {
-
-    //printf("dest mnemonic: %s\n", mnemonic);
-
-    char* result = (char*)malloc((3) * sizeof(char));
-
-    char d1 = strchr(mnemonic, 'A') ? '1' : '0';
-    char d2 = strchr(mnemonic, 'D') ? '1' : '0';
-    char d3 = strchr(mnemonic, 'M') ? '1' : '0';
-
-    result[0] = d1;
-    result[1] = d2;
-    result[2] = d3;
-
-    return result;
+    if (mnemonic == NULL) {
+        return "000";
+    } else if (strcmp(mnemonic, "M") == 0) {
+        return "001";
+    } else if (strcmp(mnemonic, "D") == 0) {
+        return "010";
+    } else if (strcmp(mnemonic, "DM") == 0) {
+        return "011";
+    } else if (strcmp(mnemonic, "A") == 0) {
+        return "100";
+    } else if (strcmp(mnemonic, "AM") == 0) {
+        return "101";
+    } else if (strcmp(mnemonic, "AD") == 0) {
+        return "110";
+    } else if (strcmp(mnemonic, "ADM") == 0) {
+        return "111";
+    } else {
+        return NULL;
+    }
 }
 
 char* comp_bin(char* mnemonic) {
@@ -25,6 +30,7 @@ char* comp_bin(char* mnemonic) {
 
     char* result = (char*)malloc((7) * sizeof(char));
 
+    
     int c1 = (strchr(mnemonic, '0')) ? '0' : '1';
     int c2 = (strchr(mnemonic, '1')) ? '0' : '1';
     int c3 = (strchr(mnemonic, '-') || strchr(mnemonic, '!')) ? '1' : '0';
@@ -45,21 +51,23 @@ char* comp_bin(char* mnemonic) {
 }
 
 char* jump_bin(char* mnemonic) {
-
-    //printf("jump mnemonic: %s\n", mnemonic);
-
-    char* result = (char*)malloc((3) * sizeof(char));
-
-    int j1 = (strchr(mnemonic, 'J') && strchr(mnemonic, 'G')) ? '1' : '0';
-    int j2 = (strchr(mnemonic, 'J') && strchr(mnemonic, 'E')) ? '1' : '0';
-    int j3 = (strchr(mnemonic, 'J') && strchr(mnemonic, 'L')) ? '1' : '0';
-    int j4 = (strchr(mnemonic, 'J') && strchr(mnemonic, 'N')) ? '1' : '0';
-    int j5 = (strchr(mnemonic, 'J') && strchr(mnemonic, 'M')) ? '1' : '0';
-    int j6 = (strchr(mnemonic, 'J') && strchr(mnemonic, 'P')) ? '1' : '0';
-
-    result[0] = j1;
-    result[1] = j2;
-    result[2] = j3;
-
-    return result;
+    if (mnemonic == NULL) {
+        return "000";
+    } else if (strcmp(mnemonic, "JGT") == 0) {
+        return "001";
+    } else if (strcmp(mnemonic, "JEQ") == 0) {
+        return "010";
+    } else if (strcmp(mnemonic, "JGE") == 0) {
+        return "011";
+    } else if (strcmp(mnemonic, "JLT") == 0) {
+        return "100";
+    } else if (strcmp(mnemonic, "JNE") == 0) {
+        return "101";
+    } else if (strcmp(mnemonic, "JLE") == 0) {
+        return "110";
+    } else if (strcmp(mnemonic, "JMP") == 0) {
+        return "111";
+    } else {
+        return NULL;
+    }
 }
