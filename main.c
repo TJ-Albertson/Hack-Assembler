@@ -8,7 +8,7 @@ int main() {
     FILE *output;
     FILE *fp;
 
-    output = fopen("output.txt", "w");
+    output = fopen("output.hack", "w");
     printf("Opened File, Starting Assembly\n");
 
     parserInitializer(fp);
