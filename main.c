@@ -21,7 +21,7 @@ int main() {
             printf("C instruction\n");
             printf("------------------------\n");
             printf("dest: %s, comp: %s, jump: %s\n", dest(), comp(), jump());
-            printf( "Binary Output: 111%s%s%s\n\n", dest_bin(dest()), comp_bin(comp()), jump_bin(jump()));
+            printf( "Binary Output: 111 %s %s %s\n\n", dest_bin(dest()), comp_bin(comp()), jump_bin(jump()));
 
             fprintf(output, "111%s%s%s\n", dest_bin(dest()), comp_bin(comp()), jump_bin(jump()));
             
