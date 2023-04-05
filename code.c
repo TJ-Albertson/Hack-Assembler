@@ -3,9 +3,7 @@
 #include <stdlib.h>
 
 char* dest_bin(char* mnemonic) {
-    if (mnemonic == NULL) {
-        return "000";
-    } else if (strcmp(mnemonic, "M") == 0) {
+    if (strcmp(mnemonic, "M") == 0) {
         return "001";
     } else if (strcmp(mnemonic, "D") == 0) {
         return "010";
@@ -20,7 +18,7 @@ char* dest_bin(char* mnemonic) {
     } else if (strcmp(mnemonic, "ADM") == 0) {
         return "111";
     } else {
-        return NULL;
+        return "000";
     }
 }
 
@@ -30,30 +28,57 @@ char* comp_bin(char* mnemonic) {
 
     char* result = (char*)malloc((7) * sizeof(char));
 
-    
-    int c1 = (strchr(mnemonic, '0')) ? '0' : '1';
-    int c2 = (strchr(mnemonic, '1')) ? '0' : '1';
-    int c3 = (strchr(mnemonic, '-') || strchr(mnemonic, '!')) ? '1' : '0';
-    int c4 = (strchr(mnemonic, 'D')) ? '0' : '1';
-    int c5 = (strchr(mnemonic, 'A') || strchr(mnemonic, 'M')) ? '0' : '1';
-    int c6 = (strchr(mnemonic, 'A') || strchr(mnemonic, 'D')) ? '1' : '0';
-    int c7 = (strchr(mnemonic, 'M')) ? '1' : '0';
+    char a = "0";
 
-    result[0] = c1;
-    result[1] = c2;
-    result[2] = c3;
-    result[3] = c4;
-    result[4] = c5;
-    result[5] = c6;
-    result[6] = c7;
+    if (strchr(mnemonic, "M") == 0) {
+        a = "1";
+    }
+
+    result[0] = a;
+
+    if (strcmp(mnemonic, "0") == 0) {
+        *result+1="101010";
+    } else if (strcmp(mnemonic, "1") == 0) {
+        return "111111";
+    } else if (strcmp(mnemonic, "-1") == 0) {
+        return "111010";
+    } else if (strcmp(mnemonic, "D") == 0) {
+        return "001100";
+    } else if (strcmp(mnemonic, "A") == 0 || strcmp(mnemonic, "M") == 0) {
+        return "110000";
+    } else if (strcmp(mnemonic, "!D") == 0) {
+        return "001101";
+    } else if (strcmp(mnemonic, "!A") == 0 || strcmp(mnemonic, "!M") == 0) {
+        return "110001";
+    } else if (strcmp(mnemonic, "-D") == 0) {
+        return "001111";
+    } else if (strcmp(mnemonic, "-A") == 0 || strcmp(mnemonic, "-M") == 0) {
+        return "110011";
+    } else if (strcmp(mnemonic, "D+1") == 0) {
+        return "011111";
+    } else if (strcmp(mnemonic, "A+1") == 0 || strcmp(mnemonic, "M+1") == 0) {
+        return "110111";
+    } else if (strcmp(mnemonic, "D-1") == 0) {
+        return "001110";
+    } else if (strcmp(mnemonic, "A-1") == 0 || strcmp(mnemonic, "M-1") == 0) {
+        return "110010";
+    } else if (strcmp(mnemonic, "D+A") == 0 || strcmp(mnemonic, "D+M") == 0) {
+        return "000010";
+    } else if (strcmp(mnemonic, "D-A") == 0 || strcmp(mnemonic, "D-M") == 0) {
+        return "010011";
+    } else if (strcmp(mnemonic, "A-D") == 0 || strcmp(mnemonic, "M-D") == 0) {
+        return "000111";
+    } else if (strcmp(mnemonic, "D&A") == 0 || strcmp(mnemonic, "D&M") == 0) {
+        return "000000";
+    } else if (strcmp(mnemonic, "D|A") == 0 || strcmp(mnemonic, "D|M") == 0) {
+        return "010101";
+    }
 
     return result;
 }
 
 char* jump_bin(char* mnemonic) {
-    if (mnemonic == NULL) {
-        return "000";
-    } else if (strcmp(mnemonic, "JGT") == 0) {
+    if (strcmp(mnemonic, "JGT") == 0) {
         return "001";
     } else if (strcmp(mnemonic, "JEQ") == 0) {
         return "010";
@@ -68,6 +93,6 @@ char* jump_bin(char* mnemonic) {
     } else if (strcmp(mnemonic, "JMP") == 0) {
         return "111";
     } else {
-        return NULL;
+        return "000";
     }
 }
