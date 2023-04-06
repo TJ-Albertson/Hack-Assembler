@@ -4,23 +4,22 @@
 
 char* dest_bin(char* mnemonic) {
 
-    if (strcmp(mnemonic, "M") == 0) {
-        return "001";
-    } else if (strcmp(mnemonic, "D") == 0) {
-        return "010";
-    } else if (strcmp(mnemonic, "DM") == 0) {
-        return "011";
-    } else if (strcmp(mnemonic, "A") == 0) {
-        return "100";
-    } else if (strcmp(mnemonic, "AM") == 0) {
-        return "101";
-    } else if (strcmp(mnemonic, "AD") == 0) {
-        return "110";
-    } else if (strcmp(mnemonic, "ADM") == 0) {
-        return "111";
-    } else {
-        return "000";
+    char* bits = malloc(4 * sizeof(char));  // allocate 4 bytes for the null terminator
+    memset(bits, '0', 3 * sizeof(char));   // set all bits to 0
+    
+    if (strchr(mnemonic, 'A') != NULL) {
+        bits[0] = '1';
     }
+    if (strchr(mnemonic, 'D') != NULL) {
+        bits[1] = '1';
+    }
+    if (strchr(mnemonic, 'M') != NULL) {
+        bits[2] = '1';
+    }
+    
+    bits[3] = '\0';  // null terminate the string
+    
+    return bits;
 }
 
 char* comp_bin(char* mnemonic) {
