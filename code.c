@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 char* dest_bin(char* mnemonic) {
+
     if (strcmp(mnemonic, "M") == 0) {
         return "001";
     } else if (strcmp(mnemonic, "D") == 0) {
@@ -71,30 +72,35 @@ char* comp_bin(char* mnemonic) {
         original="000000";
     } else if (strcmp(mnemonic, "D|A") == 0 || strcmp(mnemonic, "D|M") == 0) {
         original="010101";
+    } else {
+        original="101010";
     }
 
     char *newstr = malloc(strlen(original) + 2);
     newstr[0] = a;
     strcpy(newstr + 1, original);
 
-    printf("newstr: %s\n", newstr);
+    //printf("newstr: %s\n", newstr);
     return newstr;
 }
 
 char* jump_bin(char* mnemonic) {
-    if (strcmp(mnemonic, "JGT") == 0) {
+
+    //printf("jump mnemonic: %s\n", mnemonic);
+
+    if (strstr(mnemonic, "JGT")) {
         return "001";
-    } else if (strcmp(mnemonic, "JEQ") == 0) {
+    } else if (strstr(mnemonic, "JEQ")) {
         return "010";
-    } else if (strcmp(mnemonic, "JGE") == 0) {
+    } else if (strstr(mnemonic, "JGE")) {
         return "011";
-    } else if (strcmp(mnemonic, "JLT") == 0) {
+    } else if (strstr(mnemonic, "JLT")) {
         return "100";
-    } else if (strcmp(mnemonic, "JNE") == 0) {
+    } else if (strstr(mnemonic, "JNE")) {
         return "101";
-    } else if (strcmp(mnemonic, "JLE") == 0) {
+    } else if (strstr(mnemonic, "JLE")) {
         return "110";
-    } else if (strcmp(mnemonic, "JMP") == 0) {
+    } else if (strstr(mnemonic, "JMP")) {
         return "111";
     } else {
         return "000";

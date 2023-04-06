@@ -4,8 +4,8 @@ FILE *fp = NULL;
 char instruction[MAX_LINE_LENGTH];
 
 //opens input stream
-void parserInitializer(FILE* file) {
-    file = fopen("Add.asm", "r");
+void parserInitializer(FILE* file, char* fileName) {
+    file = fopen(fileName, "r");
     fp = file;
 };
 
@@ -102,83 +102,62 @@ char* symbol(void) {
 
 //returns dest part of C instruction
 char* dest(void) {
-
-    char* equal_ptr = strchr(instruction, '=');
-
-    // Find the first occurrence of ";" in the string
-    char* semicolon_ptr = strchr(instruction, ';');
-
-    if (equal_ptr != NULL) {
-        // Allocate a new string buffer to hold the result
-        char* result = (char*)malloc(equal_ptr - instruction + 1);
-
-        // Copy the string before "=" into the result string
-        strncpy(result, instruction, equal_ptr - instruction);
-        result[equal_ptr - instruction] = '\0';
-
-        return result;
-    } else if (semicolon_ptr != NULL) {
-        // Allocate a new string buffer to hold the result
-        char* result = (char*)malloc(semicolon_ptr - instruction + 1);
-
-        // Copy the string before ";" into the result string
-        strncpy(result, instruction, semicolon_ptr - instruction);
-        result[semicolon_ptr - instruction] = '\0';
-
-        return result;
+    if (instruction == NULL) {
+        return "";
     }
-
-    // If neither "=" nor ";" character was found, return NULL
-    return NULL;
+    
+    char* ptr = strchr(instruction, '=');
+    
+    if (ptr == NULL) {
+        return "";
+    }
+    
+    size_t length = ptr - instruction;
+    char* result = strndup(instruction, length);
+    
+    return result;
 }
 
 //returns comp part of C instruction if it exist
 char* comp(void) {
-    char* equal_ptr = strchr(instruction, '=');
-
-    // Find the first occurrence of ";" in the string
-    char* semicolon_ptr = strchr(instruction, ';');
-
-    if (equal_ptr != NULL && semicolon_ptr != NULL) {
-        // Calculate the position of the "=" and ";" characters
-        int equal_pos = (int)(equal_ptr - instruction);
-        int semicolon_pos = (int)(semicolon_ptr - instruction);
-
-        if (equal_pos < semicolon_pos) {
-            // Allocate a new string buffer to hold the result
-            char* result = (char*)malloc(semicolon_pos - equal_pos);
-        
-            // Copy the string between "=" and ";" into the result string
-            strncpy(result, equal_ptr + 1, semicolon_pos - equal_pos - 1);
-            result[semicolon_pos - equal_pos - 1] = '\0';
-
-            int len = strlen(result);
-                while (len > 0 && isspace(result[len - 1])) {
-                    result[len - 1] = '\0';
-                    len--;
-                }
-            
-            return result;
-        }
-    } else if (equal_ptr != NULL) {
-        // Allocate a new string buffer to hold the result
-        char* result = (char*)malloc(strlen(equal_ptr + 1));
-        
-        // Copy the string after "=" into the result string
-        strcpy(result, equal_ptr + 1);
-
-        int len = strlen(result);
-                while (len > 0 && isspace(result[len - 1])) {
-                    result[len - 1] = '\0';
-                    len--;
-                }
-            
-        
-        return result;
+    char* result = NULL;
+    char* ptr = NULL;
+    
+    // If input is NULL or empty string, return NULL
+    if (instruction == NULL || strlen(instruction) == 0) {
+        return NULL;
     }
-
-    // If no "=" character was found or if the ";" character comes before "=", return NULL
-    return NULL;
+    
+    // Find the position of "=" and ";"
+    char* eq_ptr = strchr(instruction, '=');
+    char* semicolon_ptr = strchr(instruction, ';');
+    
+    if (eq_ptr != NULL && semicolon_ptr != NULL) {
+        // If both "=" and ";" are found, extract the string in between
+        ptr = eq_ptr + 1;
+        size_t length = semicolon_ptr - ptr;
+        result = strndup(ptr, length);
+    } else if (eq_ptr != NULL) {
+        // If only "=" is found, extract the string after it
+        ptr = eq_ptr + 1;
+        result = strdup(ptr);
+    } else if (semicolon_ptr != NULL) {
+        // If only ";" is found, extract the string before it
+        size_t length = semicolon_ptr - instruction;
+        result = strndup(instruction, length);
+    } else {
+        // Otherwise, return NULL
+        return NULL;
+    }
+    
+    // Remove trailing whitespace or newline
+    char* end = result + strlen(result) - 1;
+    while (isspace(*end)) {
+        end--;
+    }
+    *(end+1) = '\0';
+    
+    return result;
 }
 
 //returns jump part of C instruction if it exist

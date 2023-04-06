@@ -17,7 +17,7 @@ typedef enum {
 } InstructionType;
 
 //opens input stream
-void parserInitializer(FILE* fp);
+void parserInitializer(FILE* fp, char* fileName);
 
 //Are there more lines in input
 bool hasMoreLines(void);
