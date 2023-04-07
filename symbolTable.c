@@ -1,10 +1,17 @@
 #include "symbolTable.h"
 
-struct SymbolTable SymbolTable[MAX_STRUCT_ARR_SIZE] = {};
+Symbol *SymbolTable;
+int size = 0;
 
 void symbolTableInitializer() {
     // Add predefined symbols to symbol table
+    
+    SymbolTable = malloc(MAX_STRUCT_ARR_SIZE * sizeof(Symbol));
+
     addEntry("R0", 0);
+
+    printf("yo what the fuck2\n");
+
     addEntry("R1", 1);
     addEntry("R2", 2);
     addEntry("R3", 3);
@@ -28,32 +35,47 @@ void symbolTableInitializer() {
     addEntry("THIS", 3);
     addEntry("THAT", 4);
     addEntry("LOOP", 4);
-    addEntry("STOP", 18);
-    addEntry("i", 16);
-    addEntry("sum", 17);
+
+    for (int i = 0; i < 50; i++) {
+        printf("Symbol %d: %s\n", i+1, SymbolTable[i].symbol);
+        printf("Address %d: %d\n", i+1, SymbolTable[i].address);
+    }
 }
 
 void addEntry(char* symbol, int address) {
+
+    printf("symbol: %s\n", symbol);
+    printf("address: %d\n", address);
+
+    if (address >= MAX_STRUCT_ARR_SIZE) {
+        return; // error: array full
+    }
 
     if (strlen(symbol) >= MAX_STR_LEN) {
         printf("Error: string too long\n");
         return;
     }
+    struct Symbol new_symbol = {0};
+    strncpy(new_symbol.symbol, symbol, MAX_STR_LEN);
+    
+    new_symbol.address = address;
 
-    struct SymbolTable new_struct = { symbol, address };
-    int i;
-    for (i = 0; i < MAX_STRUCT_ARR_SIZE; i++) {
-        if (SymbolTable[i].address == 0) {
-            SymbolTable[i] = new_struct;
-            return;
-        }
-    }
+    printf("max symbol struct size: %d\n", MAX_STRUCT_ARR_SIZE);
+
+    printf("new symbol: %s\n", new_symbol.symbol);
+    printf("new address: %d\n", new_symbol.address);
+    
+    SymbolTable[size] = new_symbol;
+    printf("Symbol %d: %s\n", size+1, SymbolTable[size].symbol);
+    printf("Address %d: %d\n", size+1, SymbolTable[size].address);
+    size++;
+    printf("yo what the fuck\n");
 }
 
 bool contains(char* symbol) {
     int i;
     for (i = 0; i < MAX_STRUCT_ARR_SIZE; i++) {
-        if (strcmp(SymbolTable[i].symbol, contains) == 0) {
+        if (strcmp(SymbolTable[i].symbol, symbol) == 0) {
             return 1;
         }
     }

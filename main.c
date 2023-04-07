@@ -1,10 +1,61 @@
 #include "parser.h"
 #include "code.h"
-//#include "symbolTable.h"
+#include "symbolTable.h"
 #include <stdlib.h>
 #include <stdio.h>
 
+
+int is_number(char* str) {
+  // Iterate through the string, checking each character
+  for (int i = 0; str[i] != '\0'; i++) {
+    if (!isdigit(str[i])) {
+      return 0;  // Not a number
+    }
+  }
+  return 1;  // All characters are digits, so it's a number
+}
+
 int main(int argc, char *argv[]) {
+
+    int i = 0;
+    int line = -1;
+    //first pass
+
+    FILE *fp1;
+    
+
+    symbolTableInitializer();
+    
+    parserInitializer(fp1, argv[1]);
+    printf("parser initialized\n");
+
+    //if c continue, if L add 
+    while (hasMoreLines())
+    {
+        line++;
+
+        if (instructionType() == C_INSTRUCTION) {
+            continue;
+        }
+
+        char* sym = symbol();
+
+        if (is_number(sym)) {
+            continue;
+        }
+
+        if (instructionType() == L_INSTRUCTION) {
+            addEntry(sym, line);
+            continue;
+        }
+
+        addEntry(sym, 16 + i);
+        i++;
+
+        advance();
+    }
+    printf("\nFirst Pass Done\n");
+    //fclose(fp1);
     
     FILE *output;
     FILE *fp;
@@ -30,6 +81,9 @@ int main(int argc, char *argv[]) {
     //second pass
     while (hasMoreLines())
     {
+        advance();
+
+
         if(instructionType() == C_INSTRUCTION) {
             printf("C instruction\n");
             printf("------------------------\n");
@@ -44,8 +98,17 @@ int main(int argc, char *argv[]) {
         printf("A instruction\n");
         printf("------------------------\n");
 
+
+
+        
+
+
         int decimal = strtol(symbol(), NULL, 10); 
         int i, binary[15];
+
+        if (contains(symbol())) {
+            decimal = getAddress(symbol());
+        }
 
         printf("Decimal: %d\n", decimal);
         printf("Pre Decimal to Binary Conversion\n");
@@ -67,7 +130,7 @@ int main(int argc, char *argv[]) {
         printf("\n\n");
         printf("------------------------\n");
 
-        advance();
+        
     }
 
     fclose(output);

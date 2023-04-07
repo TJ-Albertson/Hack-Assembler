@@ -3,7 +3,11 @@
         "stdbool.h": "c",
         "string.h": "c",
         "stdlib.h": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c"
     },
     "workbench.colorCustomizations": {
         "activityBar.background": "#531538",

@@ -1,16 +1,18 @@
 #ifndef SYMBOLTABLE_H
 #define SYMBOLTABLE_H
 
-#define MAX_STRUCT_ARR_SIZE 1000
+#define MAX_STRUCT_ARR_SIZE 24577
 #define MAX_STR_LEN 100
 
 #include <stdbool.h>
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-struct SymbolTable {
+typedef struct Symbol {
     char symbol[50];
     int address;
-};
+} Symbol;
 
 //creates new symbol table
 void symbolTableInitializer(void);
