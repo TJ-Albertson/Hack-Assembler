@@ -1,7 +1,7 @@
 #ifndef SYMBOLTABLE_H
 #define SYMBOLTABLE_H
 
-#define MAX_STRUCT_ARR_SIZE 24577
+#define MAX_STRUCT_ARR_SIZE 30000
 #define MAX_STR_LEN 100
 
 #include <stdbool.h>

@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     symbolTableInitializer();
     
     parserInitializer(fp1, argv[1]);
-    printf("parser initialized\n");
+    printf("\nStarting First Pass\n");
 
     //if c continue, if L add 
     while (hasMoreLines())
@@ -35,6 +35,15 @@ int main(int argc, char *argv[]) {
         advance();
         
         char* sym = symbol();
+
+        /*
+        printf("\nsymbol: %s\n", sym);
+
+        if(strcmp(sym, "sys.init") == 0) {
+            printf("\nyo\n");
+            return 0;
+        }
+        */
         
         if (instructionType() == L_INSTRUCTION) {
             addEntry(sym, line);
@@ -44,6 +53,8 @@ int main(int argc, char *argv[]) {
     }
     printf("\nFirst Pass Done\n");
     //fclose(fp1);
+
+   
     
     FILE *output;
     FILE *fp;

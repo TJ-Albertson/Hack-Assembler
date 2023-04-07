@@ -83,7 +83,7 @@ void advance(void)
     }
     *(end+1) = '\0';
 
-    printf("\nInstruction: %s\n\n", instruction);
+    //printf("\nInstruction: %s\n\n", instruction);
 };
 
 // returns type of current instruction
@@ -117,6 +117,8 @@ char *symbol(void)
         return instruction;
     }
 
+
+    //printf("--instruction: %s\n", instruction);
     // L instruction
     char* result = NULL;
     char* start = strchr(instruction, '(');

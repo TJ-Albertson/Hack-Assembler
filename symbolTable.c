@@ -33,15 +33,12 @@ void symbolTableInitializer() {
     addEntry("THIS", 3);
     addEntry("THAT", 4);
 
-    for (int i = 0; i < 50; i++) {
-        //printf("Symbol %d: %s\n", i+1, SymbolTable[i].symbol);
-        //printf("Address %d: %d\n", i+1, SymbolTable[i].address);
-    }
 }
 
 void addEntry(char* symbol, int address) {
 
     if (address >= MAX_STRUCT_ARR_SIZE) {
+        printf("Out of bounds address\n");
         return; // error: array full
     }
 
