@@ -97,15 +97,16 @@ int main(int argc, char *argv[]) {
         printf("symbol: %s\n", sym);
 
         int decimal, i, binary[15];
-
-        if (contains(sym)) {
+        
+        if (is_number(sym)) {
+            decimal = strtol(sym, NULL, 10); 
+        } else if (contains(sym)) {
             decimal = getAddress(sym);
         } else {
             int startAdd = 16;
             addEntry(sym, startAdd + memAdd);
             memAdd++;
             decimal = getAddress(sym);
-            //decimal = strtol(sym, NULL, 10); 
         }
 
         printf("Decimal: %d\n", decimal);
