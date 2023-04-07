@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
     //if c continue, if L add 
     while (hasMoreLines())
     {
+        advance();
         line++;
 
         if (instructionType() == C_INSTRUCTION) {
@@ -52,7 +53,7 @@ int main(int argc, char *argv[]) {
         addEntry(sym, 16 + i);
         i++;
 
-        advance();
+        
     }
     printf("\nFirst Pass Done\n");
     //fclose(fp1);
@@ -107,6 +108,8 @@ int main(int argc, char *argv[]) {
         int i, binary[15];
 
         if (contains(symbol())) {
+            printf("symbol: %s\n", symbol());
+            printf("decimal: %d\n", getAddress(symbol()));
             decimal = getAddress(symbol());
         }
 

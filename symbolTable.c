@@ -1,6 +1,6 @@
 #include "symbolTable.h"
 
-Symbol *SymbolTable;
+Symbol* SymbolTable;
 int size = 0;
 
 void symbolTableInitializer() {
@@ -9,8 +9,6 @@ void symbolTableInitializer() {
     SymbolTable = malloc(MAX_STRUCT_ARR_SIZE * sizeof(Symbol));
 
     addEntry("R0", 0);
-
-    printf("yo what the fuck2\n");
 
     addEntry("R1", 1);
     addEntry("R2", 2);
@@ -34,18 +32,14 @@ void symbolTableInitializer() {
     addEntry("ARG", 2);
     addEntry("THIS", 3);
     addEntry("THAT", 4);
-    addEntry("LOOP", 4);
 
     for (int i = 0; i < 50; i++) {
-        printf("Symbol %d: %s\n", i+1, SymbolTable[i].symbol);
-        printf("Address %d: %d\n", i+1, SymbolTable[i].address);
+        //printf("Symbol %d: %s\n", i+1, SymbolTable[i].symbol);
+        //printf("Address %d: %d\n", i+1, SymbolTable[i].address);
     }
 }
 
 void addEntry(char* symbol, int address) {
-
-    printf("symbol: %s\n", symbol);
-    printf("address: %d\n", address);
 
     if (address >= MAX_STRUCT_ARR_SIZE) {
         return; // error: array full
@@ -55,21 +49,15 @@ void addEntry(char* symbol, int address) {
         printf("Error: string too long\n");
         return;
     }
-    struct Symbol new_symbol = {0};
-    strncpy(new_symbol.symbol, symbol, MAX_STR_LEN);
     
-    new_symbol.address = address;
-
-    printf("max symbol struct size: %d\n", MAX_STRUCT_ARR_SIZE);
-
-    printf("new symbol: %s\n", new_symbol.symbol);
-    printf("new address: %d\n", new_symbol.address);
     
-    SymbolTable[size] = new_symbol;
-    printf("Symbol %d: %s\n", size+1, SymbolTable[size].symbol);
-    printf("Address %d: %d\n", size+1, SymbolTable[size].address);
+    strcpy(SymbolTable[size].symbol, symbol);
+    //SymbolTable[size].symbol = *symbol;
+    SymbolTable[size].address = address;
+
+    printf("Symbol Added: %s %d\n", SymbolTable[size].symbol, SymbolTable[size].address);
+
     size++;
-    printf("yo what the fuck\n");
 }
 
 bool contains(char* symbol) {
