@@ -17,8 +17,8 @@ int is_number(char* str) {
 
 int main(int argc, char *argv[]) {
 
-    int i = 0;
-    int line = -1;
+    
+    int line = 0;
     //first pass
 
     FILE *fp1;
@@ -33,27 +33,14 @@ int main(int argc, char *argv[]) {
     while (hasMoreLines())
     {
         advance();
-        line++;
-
-        if (instructionType() == C_INSTRUCTION) {
-            continue;
-        }
-
+        
         char* sym = symbol();
-
-        if (is_number(sym)) {
-            continue;
-        }
-
+        
         if (instructionType() == L_INSTRUCTION) {
             addEntry(sym, line);
-            continue;
+            continue;   
         }
-
-        addEntry(sym, 16 + i);
-        i++;
-
-        
+        line++;
     }
     printf("\nFirst Pass Done\n");
     //fclose(fp1);
@@ -79,10 +66,15 @@ int main(int argc, char *argv[]) {
 
     output = fopen(argv[1], "w");
 
+    int memAdd = 0;
     //second pass
     while (hasMoreLines())
     {
         advance();
+
+        if(instructionType() == L_INSTRUCTION) {
+            continue;
+        }
 
 
         if(instructionType() == C_INSTRUCTION) {
@@ -100,17 +92,20 @@ int main(int argc, char *argv[]) {
         printf("------------------------\n");
 
 
-
+        char *sym = symbol();
         
+        printf("symbol: %s\n", sym);
 
+        int decimal, i, binary[15];
 
-        int decimal = strtol(symbol(), NULL, 10); 
-        int i, binary[15];
-
-        if (contains(symbol())) {
-            printf("symbol: %s\n", symbol());
-            printf("decimal: %d\n", getAddress(symbol()));
-            decimal = getAddress(symbol());
+        if (contains(sym)) {
+            decimal = getAddress(sym);
+        } else {
+            int startAdd = 16;
+            addEntry(sym, startAdd + memAdd);
+            memAdd++;
+            decimal = getAddress(sym);
+            //decimal = strtol(sym, NULL, 10); 
         }
 
         printf("Decimal: %d\n", decimal);
@@ -127,6 +122,8 @@ int main(int argc, char *argv[]) {
             fprintf(output, "%d", binary[i]);
             printf("%d", binary[i]);
         }   
+        
+        
 
         fprintf(output, "\n");
         

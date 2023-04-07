@@ -72,8 +72,10 @@ bool contains(char* symbol) {
 
 int getAddress(char* symbol) {
     int i;
+    printf("get Addr Symbol: %s\n", symbol);
     for (i = 0; i < MAX_STRUCT_ARR_SIZE; i++) {
-        if (SymbolTable[i].symbol == symbol) {
+        if (strcmp(SymbolTable[i].symbol, symbol) == 0) {
+            
             return SymbolTable[i].address;
         }
     }

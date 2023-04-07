@@ -118,7 +118,21 @@ char *symbol(void)
     }
 
     // L instruction
-    return matchRegex(instruction, "\\w+");
+    char* result = NULL;
+    char* start = strchr(instruction, '(');
+    if (start != NULL) {
+        start++; // move past the opening parenthesis
+        char* end = strchr(start, ')');
+        if (end != NULL) {
+            size_t length = end - start;
+            result = (char*) malloc(length + 1); // allocate memory for result
+            if (result != NULL) {
+                strncpy(result, start, length);
+                result[length] = '\0'; // add null terminator
+            }
+        }
+    }
+    return result;
 };
 
 // returns dest part of C instruction
